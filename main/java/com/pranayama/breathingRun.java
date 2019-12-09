@@ -1,12 +1,13 @@
 package com.pranayama;
 
+import com.pranayama.audio.Sound;
 import com.pranayama.util.utils;
 import com.pranayama.basic.IRunnable;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class breathingRun implements Runnable,  IRunnable<Object> {
+public class breathingRun implements Runnable, IRunnable<Object> {
 
     JLabel label1, label2, label3, label4, labelNumCycles;
     JPanel common;
@@ -38,9 +39,8 @@ public class breathingRun implements Runnable,  IRunnable<Object> {
         this.brth1_end = brth1_end;
         this.brth2_end = brth2_end;
         this.numCycles = numCycles;
-        
-      //  resetCountersAndLabels();
 
+        //  resetCountersAndLabels();
         initValNumCycles = 0;
 
         constructor1 = true;
@@ -117,31 +117,71 @@ public class breathingRun implements Runnable,  IRunnable<Object> {
         // inhalation : exhalation
         if (constructor1) {
 
-            if (brth1 < brth1_end) {
-                brth1++;
-                label1.setText("" + utils.numberPosition(brth1));
-            } else {
-                if (brth2 < brth2_end) {
-                    brth2++;
-                    label2.setText("" + utils.numberPosition(brth2));
+            System.out.println("ThreadRun cycle:" + initValNumCycles + " numCycles:" + numCycles);
+
+//            if (initValNumCycles < numCycles) {
+                if (brth1 < brth1_end) {
+                    brth1++;
+                    label1.setText("" + utils.numberPosition(brth1));
+                    System.out.println(":1:");
                 } else {
-                    if (initValNumCycles < numCycles - 1) {
-                        initValNumCycles++;
-                        labelNumCycles.setText("" + initValNumCycles);
-                        brth1 = 0;
-                        brth2 = 0;
-                        label1.setText("00");
-                        label2.setText("00");
-//                        System.out.println("initValNumCycles:" + initValNumCycles + " numCycles:" + numCycles);
-                    } else if (initValNumCycles < numCycles) {
-                        initValNumCycles++;
-                        labelNumCycles.setText("" + initValNumCycles);
+                    if (brth2 < brth2_end) {
+                        brth2++;
+                        label2.setText("" + utils.numberPosition(brth2));
+                        if (brth2 == brth2_end) {
+                            initValNumCycles++;
+                            labelNumCycles.setText("" + initValNumCycles);
+                            if (initValNumCycles == numCycles) {
+                                stopThread();
+                            } else  {
+                                labelNumCycles.setText("" + initValNumCycles);
+                                brth1 = 0;
+                                brth2 = 0;
+                                label1.setText("00");
+                                label2.setText("00");
+                                System.out.println(":3:");
+                            }
+                        }
+                       // System.out.println(":2:");
                     } else {
-                        stopThread();
+
+//                        initValNumCycles++;
+//                        labelNumCycles.setText("" + initValNumCycles);
+                        System.out.println(":4:");
                     }
                 }
-            }
-            //  System.out.println("ThreadRun:" + v1  + "  " + v2);
+            
+
+//            if (brth1 < brth1_end) {
+//                brth1++;
+//                label1.setText("" + utils.numberPosition(brth1));
+//                System.out.println(":1:");
+//            } else {
+//                if (brth2 < brth2_end) {
+//                    brth2++;
+//                    label2.setText("" + utils.numberPosition(brth2));
+//                    System.out.println(":2:");
+//                } else {
+//                    if (initValNumCycles < numCycles - 1) {
+//                        initValNumCycles++;
+//                        labelNumCycles.setText("" + initValNumCycles);
+//                        brth1 = 0;
+//                        brth2 = 0;
+//                        label1.setText("00");
+//                        label2.setText("00");
+//                        System.out.println(":3:");
+//                        System.out.println("initValNumCycles:" + initValNumCycles + " numCycles:" + numCycles);
+//                    } else if (initValNumCycles < numCycles) {
+//                        initValNumCycles++;
+//                        labelNumCycles.setText("" + initValNumCycles);
+//                        System.out.println(":4:");
+//                    } else {
+//                        System.out.println(":5:");
+//                        stopThread();
+//                    }
+//                }
+//            }
+//            System.out.println("ThreadRun:" + initValNumCycles + " numCycles:" + numCycles);
         }
         // inhalation : hold : exhalation
         if (constructor2) {
@@ -270,6 +310,7 @@ public class breathingRun implements Runnable,  IRunnable<Object> {
 
                 Thread.currentThread().sleep(1000);
                 init();
+                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
 
             } catch (InterruptedException ex) {
             }

@@ -1,5 +1,6 @@
 package com.pranayama;
 
+import com.pranayama.audio.Sound;
 import com.pranayama.util.utils;
 import com.pranayama.basic.IRunnable;
 import java.awt.Color;
@@ -367,6 +368,8 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                 }
 
                 Thread.currentThread().sleep(1000);
+                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
+                //System.out.println("c:");
                 init();
 
             } catch (InterruptedException ex) {

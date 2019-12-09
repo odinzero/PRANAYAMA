@@ -9,7 +9,7 @@ class startBreathing extends MouseAdapter {
 
     PRANAYAMA pranaMain;
 
-    startBreathing(PRANAYAMA prana) {
+    public startBreathing(PRANAYAMA prana) {
         this.pranaMain = prana;
 
     }
