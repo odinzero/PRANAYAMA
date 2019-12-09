@@ -1,0 +1,138 @@
+------------1
+Font+: 83  292  225  74  89  20
+Font+: 96  324  245  88  105  23
+Font+: 109  356  265  100  121  26
+Font+: 122  388  285  114  136  29
+Font+: 135  420  305  126  152  33
+Font+: 148  452  325  140  168  36
+Font+: 161  484  345  152  183  39
+Font+: 174  516  365  166  199  42
+Font+: 187  548  385  178  215  46
+Font+: 200  580  405  192  230  49
+Font+: 213  612  425  204  246  52
+Font+: 226  644  445  218  262  55
+Font+: 239  676  465  230  277  59
+Font+: 252  708  485  244  293  62
+Font+: 265  740  505  256  309  65
+
+-------------2
+Font+: 83  392  225  74  89  20
+Font+: 96  439  245  88  105  23
+Font+: 109  486  265  100  121  26
+Font+: 122  533  285  114  136  29
+Font+: 135  580  305  126  152  33
+Font+: 148  627  325  140  168  36
+Font+: 161  674  345  152  183  39
+Font+: 174  721  365  166  199  42
+Font+: 187  768  385  178  215  46
+Font+: 200  815  405  192  230  49
+Font+: 213  862  425  204  246  52
+Font+: 226  909  445  218  262  55
+Font+: 239  956  465  230  277  59
+
+-------------3
+Font+: 83  555  245  74  89  20
+Font+: 96  610  275  88  105  23
+Font+: 109  665  305  100  121  26
+Font+: 122  720  335  114  136  29
+Font+: 135  775  365  126  152  33
+Font+: 148  830  395  140  168  36
+Font+: 161  885  425  152  183  39
+Font+: 174  940  455  166  199  42
+Font+: 187  995  485  178  215  46
+
+=========================== HORIZONTAL (1) =====================================
+
+
+
+=========================== VERTICAL (2) ===========================================
+
+--------------3  
+Size-: 236  320
+Size-: 268  340   
+Size-: 300  360  0
+Size+: 332  380  
+Size+: 364  400  
+Size+: 396  420  
+Size+: 428  440  
+Size+: 460  460  
+Size+: 492  480  
+Size+: 524  500  
+Size+: 556  520  
+
+--------------2 
+Size-: 176  320
+Size-: 208  340
+Size-: 240  360 0
+Size+: 272  380  
+Size+: 304  400  
+Size+: 336  420  
+Size+: 368  440  
+Size+: 400  460  
+Size+: 432  480  
+Size+: 464  500  
+Size+: 496  520  
+
+--------------1  
+Size-: 126  310
+Size-: 158  330
+Size-: 190  350 0
+Size+: 222  370  
+Size+: 254  390  
+Size+: 286  410  
+Size+: 318  430  
+Size+: 350  450  
+Size+: 382  470  
+Size+: 414  490  
+Size+: 446  510 
+
+-3 if (counter <= -2) 
+setGraphWidthAndHeight(167, 210);
+-3
+if (counter >= 8) 
+setGraphWidthAndHeight(487, 410);
+
+-2 if (counter <= -2) 
+ setGraphWidthAndHeight(106, 210);
+-2 if (counter >= 8)   
+setGraphWidthAndHeight(426, 410);
+
+-1 if (counter <= -2) 
+setGraphWidthAndHeight(64, 210);
+-1 if (counter >= 8) 
+setGraphWidthAndHeight(384, 410);
+
+
+//        function convex_polygons($x,$y,$w,$h,$n,$rotation) {
+//    
+//    // radius of polygon
+//    $r = $w/2;
+//    
+//    $vert_xy = array();
+//    
+//    $ox = $x;
+//    $oy = $y;
+//    
+//    for($i = 0; $i < $n; $i++)
+//    {
+//     $_x = $r*sin($rotation + 2*pi()/$n*$i) + $ox ;
+//     $_y = $r*cos($rotation + 2*pi()/$n*$i) + $oy ;  
+//     
+//     $vert_xy[] = $_x;
+//     $vert_xy[] = $_y;
+//    }
+//    
+//    return $vert_xy;
+    
+----------------------"HSV" 
+javax.swing.colorchooser.ColorPanel[,0,0,0x0,invalid,layout=java.awt.GridBagLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=8388617,maximumSize=,minimumSize=,preferredSize=]
+javax.swing.JLabel[,0,0,0x0,invalid,hidden,alignmentX=0.0,alignmentY=0.0,border=,flags=8388608,maximumSize=,minimumSize=,preferredSize=,defaultIcon=,disabledIcon=,horizontalAlignment=RIGHT,horizontalTextPosition=TRAILING,iconTextGap=4,labelFor=javax.swing.JFormattedTextField[,0,0,0x0,invalid,hidden,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@6193b845,flags=276824360,maximumSize=,minimumSize=java.awt.Dimension[width=70,height=20],preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=0,left=0,bottom=0,right=0],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],columns=6,columnWidth=11,command=,horizontalAlignment=RIGHT],text=,verticalAlignment=CENTER,verticalTextPosition=CENTER]
+javax.swing.JFormattedTextField[,0,0,0x0,invalid,hidden,layout=javax.swing.plaf.basic.BasicTextUI$UpdateHandler,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@6193b845,flags=8388904,maximumSize=,minimumSize=java.awt.Dimension[width=70,height=20],preferredSize=,caretColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],disabledTextColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],editable=true,margin=javax.swing.plaf.InsetsUIResource[top=0,left=0,bottom=0,right=0],selectedTextColor=sun.swing.PrintColorUIResource[r=51,g=51,b=51],selectionColor=javax.swing.plaf.ColorUIResource[r=184,g=207,b=229],columns=6,columnWidth=11,command=,horizontalAlignment=RIGHT]
+javax.swing.colorchooser.DiagramComponent[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@6193b845,flags=8388608,maximumSize=,minimumSize=,preferredSize=]
+javax.swing.colorchooser.DiagramComponent[,0,0,0x0,invalid,alignmentX=0.0,alignmentY=0.0,border=javax.swing.plaf.BorderUIResource$CompoundBorderUIResource@6193b845,flags=8388608,maximumSize=,minimumSize=,preferredSize=]
+
+
+http://www.alethis.net/reference/java/uidefaults.html
+
+
+
