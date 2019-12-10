@@ -28,7 +28,7 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
     // brth1_end <-- value from  JTextField 'field_inhalation' (class:settingsBreathing.java)
     // brth2_end <-- value from  JTextField 'field_exhalation' (class:settingsBreathing.java) 
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
+    public breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2,
             int brth1_end, int brth2_end, int numCycles) {
         this.graphComp = gcomp;
@@ -54,7 +54,7 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
     // brth2_end <-- value from  JTextField 'field_breathhold_after_inhalation' (class:settingsBreathing.java)
     // brth3_end <-- value from  JTextField 'field_exhalation' (class:settingsBreathing.java)
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
+    public breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2, int brth3,
             int brth1_end, int brth2_end, int brth3_end, int numCycles) {
         this.graphComp = gcomp;
@@ -84,7 +84,7 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
     // brth3_end <-- value from  JTextField 'field_exhalation' (class:settingsBreathing.java)
     // brth4_end <-- value from  JTextField 'field_breathhold_after_exhalation' (class:settingsBreathing.java)
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
+    public breathingRunGraphs(graphComponents gcomp, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2, int brth3, int brth4,
             int brth1_end, int brth2_end, int brth3_end, int brth4_end, int numCycles) {
         this.graphComp = gcomp;
@@ -112,6 +112,11 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
         // inhalation : exhalation
         if (constructor1) {
 
+            if (brth2 == 0) {
+                graphComp.setDW2(brth2);
+                graphComp.setCounter2("00");
+            }
+
             if (brth1 < brth1_end) {
                 brth1++;
                 graphComp.setDW1(brth1);
@@ -127,31 +132,25 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                     // for Cirlce
                     graphComp.setOneCounterForAll("" + utils.numberPosition(brth2));
                     graphComp.setColorCounter(graphComp.getColor3()); // exhalation
-                } else {
-                    if (initValNumCycles < numCycles - 1) {
+                    if (brth2 == brth2_end) {
                         initValNumCycles++;
                         labelNumCycles.setText("" + initValNumCycles);
-                        brth1 = 0;
-                        brth2 = 0;
-                        // set width of dynamic components to 0
-                        graphComp.setDW1(brth1);
-                        graphComp.setDW2(brth2);
-                        // for Cirlce
-                        graphComp.setOneCounterForAll("" + utils.numberPosition(brth1));
-//                        System.out.println("initValNumCycles:" + initValNumCycles + " numCycles:" + numCycles);
-                    } else if (initValNumCycles < numCycles) {
-                        initValNumCycles++;
-                        labelNumCycles.setText("" + initValNumCycles);
-                    } else {
-                        stopThread();
-                        // set width of dynamic components to 0
-                        graphComp.setDW1(0);
-                        graphComp.setDW2(0);
-                        graphComp.setCounter1("00");
-                        graphComp.setCounter2("00");
-                        // for Cirlce
-                        graphComp.setOneCounterForAll("00"); 
-                        graphComp.setColorCounter(Color.BLACK);
+                        if (initValNumCycles == numCycles) {
+                            stopThread();
+                            // set width of dynamic components to 0
+                            graphComp.setDW1(0);
+                            graphComp.setDW2(0);
+                            graphComp.setCounter1("00");
+                            graphComp.setCounter2("00");
+                            // for Cirlce
+                            graphComp.setOneCounterForAll("00");
+                            graphComp.setColorCounter(Color.BLACK);
+                        } else {
+                            brth1 = 0;
+                            brth2 = 0;
+                            // for Cirlce
+//                            graphComp.setOneCounterForAll("" + utils.numberPosition(brth1));
+                        }
                     }
                 }
             }
@@ -160,12 +159,21 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
         // inhalation : hold : exhalation
         if (constructor2) {
 
+            if (brth2 == 0) {
+                graphComp.setDW2(brth2);
+                graphComp.setCounter2("00");
+            }
+            if (brth3 == 0) {
+                graphComp.setDW3(brth3);
+                graphComp.setCounter3("00");
+            }
+
             if (brth1 < brth1_end) {
                 brth1++;
                 graphComp.setDW1(brth1);
                 graphComp.setCounter1("" + utils.numberPosition(brth1));
                 // for Cirlce
-                graphComp.setOneCounterForAll("" + utils.numberPosition(brth1)); 
+                graphComp.setOneCounterForAll("" + utils.numberPosition(brth1));
                 graphComp.setColorCounter(graphComp.getColor1());
             } else {
                 if (brth2 < brth2_end) {
@@ -173,7 +181,7 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                     graphComp.setDW2(brth2);
                     graphComp.setCounter2("" + utils.numberPosition(brth2));
                     // for Cirlce
-                    graphComp.setOneCounterForAll("" + utils.numberPosition(brth2)); 
+                    graphComp.setOneCounterForAll("" + utils.numberPosition(brth2));
                     graphComp.setColorCounter(graphComp.getColor2());
                 } else {
                     if (brth3 < brth3_end) {
@@ -181,43 +189,51 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                         graphComp.setDW3(brth3);
                         graphComp.setCounter3("" + utils.numberPosition(brth3));
                         // for Cirlce
-                        graphComp.setOneCounterForAll("" + utils.numberPosition(brth3)); 
+                        graphComp.setOneCounterForAll("" + utils.numberPosition(brth3));
                         graphComp.setColorCounter(graphComp.getColor3());
-                    } else {
-                        if (initValNumCycles < numCycles - 1) {
+                        if (brth3 == brth3_end) {
                             initValNumCycles++;
                             labelNumCycles.setText("" + initValNumCycles);
-                            brth1 = 0;
-                            brth2 = 0;
-                            brth3 = 0;
-                            // set width of dynamic components to 0
-                            graphComp.setDW1(brth1);
-                            graphComp.setDW2(brth2);
-                            graphComp.setDW3(brth3);
-                            // for Cirlce
-                            graphComp.setOneCounterForAll("" + utils.numberPosition(brth1)); 
-                        } else if (initValNumCycles < numCycles) {
-                            initValNumCycles++;
-                            labelNumCycles.setText("" + initValNumCycles);
-                        } else {
-                            stopThread();
-                            // set width of dynamic components to 0
-                            graphComp.setDW1(0);
-                            graphComp.setDW2(0);
-                            graphComp.setDW3(0);
-                            graphComp.setCounter1("00");
-                            graphComp.setCounter2("00");
-                            graphComp.setCounter3("00");
-                            // for Cirlce
-                            graphComp.setOneCounterForAll("00");
-                            graphComp.setColorCounter(Color.BLACK);
+                            if (initValNumCycles == numCycles) {
+                                stopThread();
+                                // set width of dynamic components to 0
+                                graphComp.setDW1(0);
+                                graphComp.setDW2(0);
+                                graphComp.setDW3(0);
+                                graphComp.setCounter1("00");
+                                graphComp.setCounter2("00");
+                                graphComp.setCounter3("00");
+                                // for Cirlce
+                                graphComp.setOneCounterForAll("00");
+                                graphComp.setColorCounter(Color.BLACK);
+                            } else {
+                                brth1 = 0;
+                                brth2 = 0;
+                                brth3 = 0;
+                                // for Cirlce
+                                //graphComp.setOneCounterForAll("" + utils.numberPosition(brth1));
+                            }
                         }
                     }
                 }
             }
+
         }
         // inhalation : hold : exhalation : hold
         if (constructor3) {
+
+            if (brth2 == 0) {
+                graphComp.setDW2(brth2);
+                graphComp.setCounter2("00");
+            }
+            if (brth3 == 0) {
+                graphComp.setDW3(brth3);
+                graphComp.setCounter3("00");
+            }
+            if (brth4 == 0) {
+                graphComp.setDW4(brth4);
+                graphComp.setCounter4("00");
+            }
 
             if (brth1 < brth1_end) {
                 brth1++;
@@ -250,44 +266,35 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                             // for Cirlce
                             graphComp.setOneCounterForAll("" + utils.numberPosition(brth4));
                             graphComp.setColorCounter(graphComp.getColor4());
-                        } else {
-                            if (initValNumCycles < numCycles - 1) {
+                            if (brth4 == brth4_end) {
                                 initValNumCycles++;
                                 labelNumCycles.setText("" + initValNumCycles);
-                                brth1 = 0;
-                                brth2 = 0;
-                                brth3 = 0;
-                                brth4 = 0;
-                                // set width of dynamic components to 0
-                                graphComp.setDW1(brth1);
-                                graphComp.setDW2(brth2);
-                                graphComp.setDW3(brth3);
-                                graphComp.setDW4(brth4);
-                                // for Cirlce
-                                graphComp.setOneCounterForAll("" + utils.numberPosition(brth1));
-                            } else if (initValNumCycles < numCycles) {
-                                initValNumCycles++;
-                                labelNumCycles.setText("" + initValNumCycles);
-                            } else {
-                                stopThread();
-                                // set width of dynamic components to 0
-                                graphComp.setDW1(0);
-                                graphComp.setDW2(0);
-                                graphComp.setDW3(0);
-                                graphComp.setDW4(0);
-
-                                graphComp.setCounter1("00");
-                                graphComp.setCounter2("00");
-                                graphComp.setCounter3("00");
-                                graphComp.setCounter4("00");
-                                // for Cirlce
-                                graphComp.setOneCounterForAll("00");
-                                graphComp.setColorCounter(Color.BLACK);
+                                if (initValNumCycles == numCycles) {
+                                    stopThread();
+                                    // set width of dynamic components to 0
+                                    graphComp.setDW1(0);
+                                    graphComp.setDW2(0);
+                                    graphComp.setDW3(0);
+                                    graphComp.setDW4(0);
+                                    graphComp.setCounter1("00");
+                                    graphComp.setCounter2("00");
+                                    graphComp.setCounter3("00");
+                                    graphComp.setCounter4("00");
+                                    // for Cirlce
+                                    graphComp.setOneCounterForAll("00");
+                                    graphComp.setColorCounter(Color.BLACK);
+                                } else {
+                                    brth1 = 0;
+                                    brth2 = 0;
+                                    brth3 = 0;
+                                    brth4 = 0;
+                                }
                             }
                         }
                     }
                 }
             }
+
         }
         common.repaint();
     }
@@ -368,9 +375,8 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                 }
 
                 Thread.currentThread().sleep(1000);
-                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
-                //System.out.println("c:");
                 init();
+                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
 
             } catch (InterruptedException ex) {
             }

@@ -18,7 +18,7 @@ public class SoundTest implements Runnable {
                 try {
                     cnt++;
                     Thread.currentThread().sleep(1000);
-                    Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
+                    Sound.playSound("./src/main/recources/sound/ARROW_ok.wav").join();
                     System.out.println("cnt:" + cnt);
                 } catch (InterruptedException ex) {}
             }

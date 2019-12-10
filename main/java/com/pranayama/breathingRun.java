@@ -117,74 +117,42 @@ public class breathingRun implements Runnable, IRunnable<Object> {
         // inhalation : exhalation
         if (constructor1) {
 
-            System.out.println("ThreadRun cycle:" + initValNumCycles + " numCycles:" + numCycles);
+            // System.out.println("ThreadRun cycle:" + initValNumCycles + " numCycles:" + numCycles);
+            if (brth2 == 0) {
+                label2.setText("00");
+            }
 
-//            if (initValNumCycles < numCycles) {
-                if (brth1 < brth1_end) {
-                    brth1++;
-                    label1.setText("" + utils.numberPosition(brth1));
-                    System.out.println(":1:");
-                } else {
-                    if (brth2 < brth2_end) {
-                        brth2++;
-                        label2.setText("" + utils.numberPosition(brth2));
-                        if (brth2 == brth2_end) {
-                            initValNumCycles++;
-                            labelNumCycles.setText("" + initValNumCycles);
-                            if (initValNumCycles == numCycles) {
-                                stopThread();
-                            } else  {
-                                labelNumCycles.setText("" + initValNumCycles);
-                                brth1 = 0;
-                                brth2 = 0;
-                                label1.setText("00");
-                                label2.setText("00");
-                                System.out.println(":3:");
-                            }
+            if (brth1 < brth1_end) {
+                brth1++;
+                label1.setText("" + utils.numberPosition(brth1));
+            } else {
+                if (brth2 < brth2_end) {
+                    brth2++;
+                    label2.setText("" + utils.numberPosition(brth2));
+                    if (brth2 == brth2_end) {
+                        initValNumCycles++;
+                        labelNumCycles.setText("" + initValNumCycles);
+                        if (initValNumCycles == numCycles) {
+                            stopThread();
+                        } else {
+                            brth1 = 0;
+                            brth2 = 0;
+                            System.out.println(":3:");
                         }
-                       // System.out.println(":2:");
-                    } else {
-
-//                        initValNumCycles++;
-//                        labelNumCycles.setText("" + initValNumCycles);
-                        System.out.println(":4:");
                     }
                 }
-            
+            }
 
-//            if (brth1 < brth1_end) {
-//                brth1++;
-//                label1.setText("" + utils.numberPosition(brth1));
-//                System.out.println(":1:");
-//            } else {
-//                if (brth2 < brth2_end) {
-//                    brth2++;
-//                    label2.setText("" + utils.numberPosition(brth2));
-//                    System.out.println(":2:");
-//                } else {
-//                    if (initValNumCycles < numCycles - 1) {
-//                        initValNumCycles++;
-//                        labelNumCycles.setText("" + initValNumCycles);
-//                        brth1 = 0;
-//                        brth2 = 0;
-//                        label1.setText("00");
-//                        label2.setText("00");
-//                        System.out.println(":3:");
-//                        System.out.println("initValNumCycles:" + initValNumCycles + " numCycles:" + numCycles);
-//                    } else if (initValNumCycles < numCycles) {
-//                        initValNumCycles++;
-//                        labelNumCycles.setText("" + initValNumCycles);
-//                        System.out.println(":4:");
-//                    } else {
-//                        System.out.println(":5:");
-//                        stopThread();
-//                    }
-//                }
-//            }
-//            System.out.println("ThreadRun:" + initValNumCycles + " numCycles:" + numCycles);
         }
         // inhalation : hold : exhalation
         if (constructor2) {
+
+            if (brth2 == 0) {
+                label2.setText("00");
+            }
+            if (brth3 == 0) {
+                label3.setText("00");
+            }
 
             if (brth1 < brth1_end) {
                 brth1++;
@@ -197,28 +165,34 @@ public class breathingRun implements Runnable, IRunnable<Object> {
                     if (brth3 < brth3_end) {
                         brth3++;
                         label3.setText("" + utils.numberPosition(brth3));
-                    } else {
-                        if (initValNumCycles < numCycles - 1) {
+                        if (brth3 == brth3_end) {
                             initValNumCycles++;
                             labelNumCycles.setText("" + initValNumCycles);
-                            brth1 = 0;
-                            brth2 = 0;
-                            brth3 = 0;
-                            label1.setText("00");
-                            label2.setText("00");
-                            label3.setText("00");
-                        } else if (initValNumCycles < numCycles) {
-                            initValNumCycles++;
-                            labelNumCycles.setText("" + initValNumCycles);
-                        } else {
-                            stopThread();
+                            if (initValNumCycles == numCycles) {
+                                stopThread();
+                            } else {
+                                brth1 = 0;
+                                brth2 = 0;
+                                brth3 = 0;
+                            }
                         }
                     }
                 }
             }
+
         }
         // inhalation : hold : exhalation : hold
         if (constructor3) {
+
+            if (brth2 == 0) {
+                label2.setText("00");
+            }
+            if (brth3 == 0) {
+                label3.setText("00");
+            }
+            if (brth4 == 0) {
+                label4.setText("00");
+            }
 
             if (brth1 < brth1_end) {
                 brth1++;
@@ -235,28 +209,23 @@ public class breathingRun implements Runnable, IRunnable<Object> {
                         if (brth4 < brth4_end) {
                             brth4++;
                             label4.setText("" + utils.numberPosition(brth4));
-                        } else {
-                            if (initValNumCycles < numCycles - 1) {
+                            if (brth4 == brth4_end) {
                                 initValNumCycles++;
                                 labelNumCycles.setText("" + initValNumCycles);
-                                brth1 = 0;
-                                brth2 = 0;
-                                brth3 = 0;
-                                brth4 = 0;
-                                label1.setText("00");
-                                label2.setText("00");
-                                label3.setText("00");
-                                label4.setText("00");
-                            } else if (initValNumCycles < numCycles) {
-                                initValNumCycles++;
-                                labelNumCycles.setText("" + initValNumCycles);
-                            } else {
-                                stopThread();
+                                if (initValNumCycles == numCycles) {
+                                    stopThread();
+                                } else {
+                                    brth1 = 0;
+                                    brth2 = 0;
+                                    brth3 = 0;
+                                    brth4 = 0;
+                                }
                             }
                         }
                     }
                 }
             }
+
         }
         common.repaint();
     }
