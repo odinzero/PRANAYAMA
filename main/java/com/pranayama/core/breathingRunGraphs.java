@@ -1,8 +1,9 @@
-package com.pranayama;
+package com.pranayama.core;
 
 import com.pranayama.audio.Sound;
 import com.pranayama.util.utils;
 import com.pranayama.basic.IRunnable;
+import com.pranayama.graphComponents;
 import java.awt.Color;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JLabel;

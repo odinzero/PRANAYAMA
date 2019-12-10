@@ -1,4 +1,4 @@
-package com.pranayama;
+package com.pranayama.core;
 
 import com.pranayama.audio.Sound;
 import com.pranayama.util.utils;
@@ -26,7 +26,7 @@ public class breathingRun implements Runnable, IRunnable<Object> {
     // brth1_end <-- value from  JTextField field_inhalation (class:settingsBreathing.java)
     // brth2_end <-- value from  JTextField field_exhalation (class:settingsBreathing.java) 
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRun(JLabel label1, JLabel label2, JLabel labelNumCycles, JPanel common,
+    public breathingRun(JLabel label1, JLabel label2, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2,
             int brth1_end, int brth2_end, int numCycles) {
         this.label1 = label1;
@@ -54,7 +54,7 @@ public class breathingRun implements Runnable, IRunnable<Object> {
     // brth2_end <-- value from  JTextField 'field_breathhold_after_inhalation' (class:settingsBreathing.java)
     // brth3_end <-- value from  JTextField 'field_exhalation' (class:settingsBreathing.java)
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRun(JLabel label1, JLabel label2, JLabel label3, JLabel labelNumCycles, JPanel common,
+    public breathingRun(JLabel label1, JLabel label2, JLabel label3, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2, int brth3,
             int brth1_end, int brth2_end, int brth3_end, int numCycles) {
         this.label1 = label1;
@@ -86,7 +86,7 @@ public class breathingRun implements Runnable, IRunnable<Object> {
     // brth3_end <-- value from  JTextField 'field_exhalation' (class:settingsBreathing.java)
     // brth4_end <-- value from  JTextField 'field_breathhold_after_exhalation' (class:settingsBreathing.java)
     // numCycles <-- value from  JSpinner spinner_cycles     (class:settingsBreathing.java)
-    breathingRun(JLabel label1, JLabel label2, JLabel label3, JLabel label4, JLabel labelNumCycles, JPanel common,
+    public breathingRun(JLabel label1, JLabel label2, JLabel label3, JLabel label4, JLabel labelNumCycles, JPanel common,
             int brth1, int brth2, int brth3, int brth4,
             int brth1_end, int brth2_end, int brth3_end, int brth4_end, int numCycles) {
         this.label1 = label1;

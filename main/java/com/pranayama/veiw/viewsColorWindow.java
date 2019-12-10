@@ -1163,6 +1163,6 @@ public class viewsColorWindow implements ILabel {
         button.add(p);
 
         frame.add(button);
-        // frame.setVisible(true);
+       // frame.setVisible(true);
     }
 }

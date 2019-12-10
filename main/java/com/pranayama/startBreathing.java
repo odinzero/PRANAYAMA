@@ -1,5 +1,7 @@
 package com.pranayama;
 
+import com.pranayama.core.breathingRunGraphs;
+import com.pranayama.core.breathingRun;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
