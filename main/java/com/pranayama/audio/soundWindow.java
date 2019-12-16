@@ -10,6 +10,7 @@ import com.pranayama.ui.buttons;
 import com.pranayama.ui.list.AnimationList;
 import com.pranayama.ui.list.AnimationListCellRenderer;
 import com.pranayama.ui.list.LightScrollPane;
+import com.pranayama.ui.list.GenericListModel;
 import com.pranayama.ui.panel.basicPanel;
 import com.pranayama.util.utils;
 import static com.pranayama.util.utils2.listFilesForFolder;
@@ -199,16 +200,18 @@ public class soundWindow {
         
         final File folder = new File("./src/main/recources/sound");
         String[] files = listFilesForFolder(folder);
+        
+        DefaultListModel model = new DefaultListModel( );
+        JList list = new JList(model); // al
 
         AnimationList[] al = new AnimationList[files.length];
         for (int i = 0; i < files.length; i++) {
             String f = files[i];
             al[i] = new AnimationList(f, "./src/main/recources/img/audio4.png");
+            model.addElement(al[i]); 
         }
         
-        DefaultListModel model = new DefaultListModel( );
-        JList list = new JList(al);
-        list.setModel(new GenericListModel<AnimationList>()); 
+        //list.setModel(new GenericListModel<AnimationList>()); 
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new AnimationListCellRenderer(list));
         list.addListSelectionListener(new ListSelectionListener() {
@@ -216,7 +219,6 @@ public class soundWindow {
             @Override
             public void valueChanged(ListSelectionEvent arg0) {
                 
-               // DefaultListModel model = (DefaultListModel) list.getModel();
                 setSoundListIndex(list.getSelectedIndex()); 
 
                 if (getSoundListIndex() != -1) {
@@ -279,19 +281,11 @@ public class soundWindow {
                 String fileName = soundList.getSelectedValue().toString();
                 
                 //./src/main/recources/
-                File f= new File("D:\\=_NETBEANS_PROJECTS_=\\PRANAYAMA\\src\\main\\recources\\sound\\" + fileName); // 
+                File f= new File("./src/main/recources/sound/" + fileName); //
                 f.delete();
                 
-                
-//                AnimationList model = (AnimationList) soundList.getModel();
-//                model.remove(soundListIndex);
-                
-               // sound.base.remove(scroll);
-        
-//                soundList = createList();
-//                scroll = new LightScrollPane(soundList); 
-//                scroll.setBounds(25, 175, 350, 175);
-//                sound.base.add(scroll);
+                DefaultListModel model = (DefaultListModel) soundList.getModel();
+                model.remove(soundListIndex);
                 
                 soundList.repaint();
                 sound.base.repaint();

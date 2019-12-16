@@ -3,8 +3,7 @@ package com.pranayama.ui.list;
 import java.util.*;
 import javax.swing.*;
 
-
-class GenericListModel<T> extends AbstractListModel {
+public class GenericListModel<T> extends AbstractListModel {
 
     private static final long serialVersionUID = 1L;
     private List<T> data = Collections.synchronizedList(new ArrayList<T>());
