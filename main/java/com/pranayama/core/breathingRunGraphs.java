@@ -11,6 +11,7 @@ import javax.swing.JPanel;
 
 public class breathingRunGraphs implements Runnable, IRunnable<Object> {
 
+    Sound sound;
     graphComponents graphComp;
     JLabel labelNumCycles;
     JPanel common;
@@ -106,6 +107,14 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
 
         constructor3 = true;
         suspend = new AtomicBoolean(false);
+    }
+
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
+
+    public Sound getSound() {
+        return sound;
     }
 
     //
@@ -377,7 +386,12 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
 
                 Thread.currentThread().sleep(1000);
                 init();
-                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
+                if (sound != null) {
+                    setSound(sound);
+                    this.sound.play();
+                    this.sound.startThread();
+                }
+//                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
 
             } catch (InterruptedException ex) {
             }
@@ -412,6 +426,10 @@ public class breathingRunGraphs implements Runnable, IRunnable<Object> {
                 // Notify mainthread
                 synchronized (thrObj) {
                     thrObj.notify();
+                }
+                // stop play sound
+                if (sound != null) {
+                    sound.stopThread();
                 }
             }
         }

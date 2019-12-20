@@ -76,11 +76,11 @@ public class patternWindow {
         window.setFocusableWindowState(true);
         window.setVisible(true);
 
-//        if(centerORnot) { 
-//          center(prana.frame, window);
-//        } else {
-//          nonCenter(prana.frame, x, y);
-//        }
+        if(centerORnot) { 
+          center(prana.frame, window);
+        } else {
+          nonCenter(prana.frame, x, y);
+        }
         setContentPanel();
 
         if (useBorder) {
@@ -115,7 +115,7 @@ public class patternWindow {
         window.setVisible(bool);
     }
 
-    private static void center(JFrame outside, JWindow inside) {
+    private static void center(JFrame outside, JFrame inside) { // JWindow
         // get the size of the screen, on systems with multiple displays,
         // the primary display is used
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

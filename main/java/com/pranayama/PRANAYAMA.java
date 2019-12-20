@@ -7,6 +7,7 @@ import com.pranayama.veiw.viewsColorWindow;
 import com.pranayama.menu.menu;
 import com.pranayama.ui.plusminus.PlusMinusActions;
 import com.pranayama.ui.panel.basicPanel;
+import com.pranayama.veiw.soundWindow;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -23,7 +24,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class PRANAYAMA implements KeyListener {
+public class PRANAYAMA  { /// implements KeyListener
 
     // https://www.youtube.com/watch?v=YrMydptCI_E&list=PL0Zqu46zKe0o0OKzOtk1EGpRK7QmK_MVR
     public JFrame frame;
@@ -33,6 +34,7 @@ public class PRANAYAMA implements KeyListener {
     public menu mainMenu;
     public views view;
     public viewsWindow views_window;
+    public soundWindow sound_window;
     public viewsColorWindow colorsWindow;
     public viewDefault vDefault;
 
@@ -43,6 +45,7 @@ public class PRANAYAMA implements KeyListener {
         frame.getRootPane().setBorder(BorderFactory.createLineBorder(new Color(190, 220, 220), 5, true));
 //        bevel.setFloatable(false);
         frame.setSize(1015, 600);
+        frame.addKeyListener(new keyEvents(this)); 
 //        frame.setMinimumSize(new Dimension(1215, 600)); // 361, 300
 //        frame.setPreferredSize(new Dimension(1215, 600));
         // frame.setLayout(null);
@@ -53,9 +56,10 @@ public class PRANAYAMA implements KeyListener {
         basic.setSize(frame.getWidth(), frame.getHeight());
         // basic.setLayout(new BorderLayout()); 
         // set background of panel
-         basic.setType(1);
+        basic.setType(1);
         //frame.setContentPane(basic); 
         // frame.getRootPane().setContentPane(basic); 
+        
 
         center();
 //--------------------------------- DEFAULT VIEW -------------------------------
@@ -66,7 +70,7 @@ public class PRANAYAMA implements KeyListener {
         view = new views(this);
         
         views_window = new viewsWindow(this);
-        
+        sound_window = new soundWindow(this); 
         colorsWindow = new viewsColorWindow(this);  // Breathing Snake 1:1
 //        colorsWindow.colors.base.repaint();
 //------------------------------ MINUS and PLUS --------------------------------
@@ -87,27 +91,27 @@ public class PRANAYAMA implements KeyListener {
         frame.setLocation(x, y);
     }
 
-    @Override
-    public void keyTyped(KeyEvent e) {
-    }
+//    @Override
+//    public void keyTyped(KeyEvent e) {
+//    }
 
-    @Override
-    public void keyPressed(KeyEvent e) {
-        int keyCode = e.getKeyCode();
-
-        // start breathing
-        if (keyCode == KeyEvent.VK_S) {
-//            pauseGame();
-        }
-        // when need pause breathing    
-        if (keyCode == KeyEvent.VK_P) {
-//            pauseGame();
-        }
-    }
-
-    @Override
-    public void keyReleased(KeyEvent e) {
-    }
+//    @Override
+//    public void keyPressed(KeyEvent e) {
+//        int keyCode = e.getKeyCode();
+//
+//        // start breathing
+//        if (keyCode == KeyEvent.VK_S) {
+////            pauseGame();
+//        }
+//        // when need pause breathing    
+//        if (keyCode == KeyEvent.VK_P) {
+////            pauseGame();
+//        }
+//    }
+//
+//    @Override
+//    public void keyReleased(KeyEvent e) {
+//    }
 
     public static void main(String[] args) {
 

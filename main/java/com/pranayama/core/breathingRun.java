@@ -3,12 +3,14 @@ package com.pranayama.core;
 import com.pranayama.audio.Sound;
 import com.pranayama.util.utils;
 import com.pranayama.basic.IRunnable;
+import java.io.File;
 import java.util.concurrent.atomic.AtomicBoolean;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class breathingRun implements Runnable, IRunnable<Object> {
 
+    Sound sound;
     JLabel label1, label2, label3, label4, labelNumCycles;
     JPanel common;
     int brth1, brth2, brth3, brth4;
@@ -110,6 +112,14 @@ public class breathingRun implements Runnable, IRunnable<Object> {
 
         constructor3 = true;
         suspend = new AtomicBoolean(false);
+    }
+
+    public void setSound(Sound sound) {
+        this.sound = sound;
+    }
+
+    public Sound getSound() {
+        return sound;
     }
 
     //
@@ -279,7 +289,12 @@ public class breathingRun implements Runnable, IRunnable<Object> {
 
                 Thread.currentThread().sleep(1000);
                 init();
-                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
+                if(sound != null) {
+                   setSound(sound);
+                   this.sound.play();
+                   this.sound.startThread();
+                }
+//                Sound.playSound("./src/main/recources/sound/snd1_ok.wav").join();
 
             } catch (InterruptedException ex) {
             }
@@ -314,6 +329,10 @@ public class breathingRun implements Runnable, IRunnable<Object> {
                 // Notify mainthread
                 synchronized (thrObj) {
                     thrObj.notify();
+                }
+                // stop play sound
+                if(sound != null) {
+                    sound.stopThread();
                 }
             }
         }

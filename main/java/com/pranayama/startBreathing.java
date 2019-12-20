@@ -1,12 +1,14 @@
 package com.pranayama;
 
+import com.pranayama.audio.Sound;
 import com.pranayama.core.breathingRunGraphs;
 import com.pranayama.core.breathingRun;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 
 class startBreathing extends MouseAdapter {
- 
+
     breathingRun breathing_run;
 
     PRANAYAMA pranaMain;
@@ -105,14 +107,14 @@ class startBreathing extends MouseAdapter {
             } else {
                 if (pranaMain.colorsWindow.indexGradient == -1) {
                     pranaMain.basic.setType(pranaMain.basic.getType());
-                    System.out.println("if TYPE:" + pranaMain.basic.getType() );
+                    System.out.println("if TYPE:" + pranaMain.basic.getType());
                 } else {
                     pranaMain.basic.setType(pranaMain.colorsWindow.indexGradient);
-                    System.out.println("else TYPE:" + pranaMain.basic.getType() );
+                    System.out.println("else TYPE:" + pranaMain.basic.getType());
                 }
             }
         }
-        
+
 //         System.out.println("!!! box_useGradientOrNot: " + pranaMain.colorsWindow.box_useGradientOrNot.isSelected());
 //         System.out.println("!!! TYPE:" + pranaMain.basic.getType() );
         pranaMain.basic.setType(pranaMain.basic.getType());
@@ -135,6 +137,8 @@ class startBreathing extends MouseAdapter {
 
                     breathing_run.resetCountersAndLabels();
                     breathing_run.startThread();
+                    // apply sound OR not
+                    applySound(breathing_run, null);
                 }
                 // HORIZONTAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.HORIZONTAL_VIEW) {
@@ -150,6 +154,8 @@ class startBreathing extends MouseAdapter {
 
                     rg.resetCountersAndLabels();
                     rg.startThread();
+                    // apply sound OR not
+                    applySound(null, rg);
                 }
                 // VERTICAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.VERTICAL_VIEW) {
@@ -167,6 +173,8 @@ class startBreathing extends MouseAdapter {
 
                     vg.resetCountersAndLabels();
                     vg.startThread();
+                    // apply sound OR not
+                    applySound(null, vg);
                 }
                 // CIRCLE VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.CIRCLE_VIEW) {
@@ -182,6 +190,8 @@ class startBreathing extends MouseAdapter {
 
                     cg.resetCountersAndLabels();
                     cg.startThread();
+                    // apply sound OR not
+                    applySound(null, cg);
                 }
                 break;
             case 2:
@@ -197,6 +207,8 @@ class startBreathing extends MouseAdapter {
 
                     breathing_run.resetCountersAndLabels();
                     breathing_run.startThread();
+                    // apply sound OR not
+                    applySound(breathing_run,null);
                 }
                 // HORIZONTAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.HORIZONTAL_VIEW) {
@@ -213,6 +225,8 @@ class startBreathing extends MouseAdapter {
 
                     rg2.resetCountersAndLabels();
                     rg2.startThread();
+                    // apply sound OR not
+                    applySound(null, rg2);
                 }
                 // VERTICAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.VERTICAL_VIEW) {
@@ -232,6 +246,8 @@ class startBreathing extends MouseAdapter {
 
                     vg2.resetCountersAndLabels();
                     vg2.startThread();
+                    // apply sound OR not
+                    applySound(null, vg2);
                 }
                 // CIRCLE VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.CIRCLE_VIEW) {
@@ -248,6 +264,8 @@ class startBreathing extends MouseAdapter {
 
                     cg2.resetCountersAndLabels();
                     cg2.startThread();
+                    // apply sound OR not
+                    applySound(null,cg2);
                 }
                 break;
             case 3:
@@ -264,6 +282,8 @@ class startBreathing extends MouseAdapter {
 
                     breathing_run.resetCountersAndLabels();
                     breathing_run.startThread();
+                    // apply sound OR not
+                    applySound(breathing_run,null);
                 }
                 // HORIZONTAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.HORIZONTAL_VIEW) {
@@ -281,6 +301,8 @@ class startBreathing extends MouseAdapter {
 
                     rg3.resetCountersAndLabels();
                     rg3.startThread();
+                    // apply sound OR not
+                    applySound(null,rg3);
                 }
                 // VERTICAL_VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.VERTICAL_VIEW) {
@@ -302,6 +324,8 @@ class startBreathing extends MouseAdapter {
 
                     vg3.resetCountersAndLabels();
                     vg3.startThread();
+                    // apply sound OR not
+                    applySound(null, vg3);
                 }
                 // CIRCLE VIEW
                 if (pranaMain.vDefault.defaultView == pranaMain.vDefault.CIRCLE_VIEW) {
@@ -319,11 +343,40 @@ class startBreathing extends MouseAdapter {
 
                     cg3.resetCountersAndLabels();
                     cg3.startThread();
+                    // apply sound OR not
+                    applySound(null, cg3);
                 }
                 break;
         }
 
         //  System.out.println("ma: " + v1 + "  " + v2 + "  " + numCycles);
+    }
+
+    // thd1 - thread for breathingRun '00:00'
+    // thd2 - thread for breathingRunGraphs 'horizontal','vertical', 'circle'
+    private void applySound(breathingRun thd1, breathingRunGraphs thd2) {
+
+        if (thd1 != null) {
+            if (pranaMain.sound_window.sound_box.isSelected()) {
+                String fileName = (String) pranaMain.sound_window.getSelectedSound();
+                Sound s = new Sound(new File("./src/main/recources/sound/" + fileName));
+                // System.out.println("START BREATH RUN:" + fileName);
+                thd1.setSound(s);
+            } else {
+                thd1.setSound(null);
+            }
+        }
+        
+        if (thd2 != null) {
+            if (pranaMain.sound_window.sound_box.isSelected()) {
+                String fileName = (String) pranaMain.sound_window.getSelectedSound();
+                Sound s = new Sound(new File("./src/main/recources/sound/" + fileName));
+                // System.out.println("START BREATH RUN:" + fileName);
+                thd2.setSound(s);
+            } else {
+                thd2.setSound(null);
+            }
+        }
     }
 
 }

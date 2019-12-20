@@ -22,7 +22,7 @@ public class test  extends JFrame{
 
     test() {
         choiceAnimation = new JList(st);
-        choiceAnimation.setCellRenderer(new AnimationListCellRenderer());
+//        choiceAnimation.setCellRenderer(new AnimationListCellRenderer());
         
 //        Border in = BorderFactory.createEmptyBorder(2,2,2,2);
 //        Border out = BorderFactory.createBevelBorder(BevelBorder.RAISED);

@@ -67,11 +67,13 @@ public class settingsBreathing implements ILabel {
     JSpinner spinner_mplier;
     JSpinner spinner_cycles;
     //Menu 'Breath' 
-    patternWindow.buttonsWindow apply, views, colors, start, close;
+    patternWindow.buttonsWindow apply, views, audio, colors, start, close;
     // Mouse Listener for button 'Start'
     startBreathing start_breathing;
     // Mouse Listener for button 'Views'
     forButton_views forBut_views;
+    // Mouse Listener for button 'Sound'
+    forButton_audio forBut_audio;
     // Mouse Listener for button 'Colors'
     forButton_colors forBut_colors;
     //
@@ -90,6 +92,7 @@ public class settingsBreathing implements ILabel {
         tfocus = new tfieldfocusListener();
         
         forBut_views = new forButton_views();
+        forBut_audio = new forButton_audio();
         forBut_colors = new forButton_colors();
 
         filter = new MyIntFilter();
@@ -441,6 +444,13 @@ public class settingsBreathing implements ILabel {
         // views.addMouseListener(startBreathing());
         views.setBounds(45, 450, 85, 40);
         views.addMouseListener(forBut_views);
+        
+        // add button Sound
+        audio = settings.new buttonsWindow("Sound", 80, 35, 6, 23);
+        audio.setDisabledState(false);
+        // views.addMouseListener(startBreathing());
+        audio.setBounds(155, 450, 85, 40);
+        audio.addMouseListener(forBut_audio);
 
         // add button 'Colors'      
         colors = settings.new buttonsWindow("Colors", 80, 35, 6, 23);
@@ -450,6 +460,7 @@ public class settingsBreathing implements ILabel {
         colors.addMouseListener(forBut_colors);
 
         settings.base.add(views);
+        settings.base.add(audio);
         settings.base.add(colors);
 // =============================================================================
         separator s9 = new separator();
@@ -521,7 +532,7 @@ public class settingsBreathing implements ILabel {
             }
     }
     
-    class forButton_colors extends MouseAdapter {
+     class forButton_colors extends MouseAdapter {
         
         forButton_colors(){}
         
@@ -534,6 +545,20 @@ public class settingsBreathing implements ILabel {
 
                 // Show COLOR window
                 pranaMain.colorsWindow.colors.setWindowVisibility(true);
+                // hide SETTINGS window
+                settings.setWindowVisibility(false);
+            }
+    }
+    
+    class forButton_audio extends MouseAdapter {
+        
+        forButton_audio(){}
+        
+         @Override
+            public void mousePressed(MouseEvent e) {
+
+                // Show COLOR window
+                pranaMain.sound_window.sound.setWindowVisibility(true);
                 // hide SETTINGS window
                 settings.setWindowVisibility(false);
             }

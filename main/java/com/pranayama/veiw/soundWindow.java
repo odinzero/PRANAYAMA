@@ -1,22 +1,28 @@
-package com.pranayama.audio;
+package com.pranayama.veiw;
 
 import com.pranayama.PRANAYAMA;
+import com.pranayama.audio.Sound;
+import com.pranayama.util.fileUtils;
 import com.pranayama.gradientSampleIcon;
 import com.pranayama.menu.ui.separator;
 import com.pranayama.pattern.patternWindow;
 import com.pranayama.ui.MyCheckBoxUI;
 import com.pranayama.ui.MyComboBoxUI;
 import com.pranayama.ui.buttons;
+import com.pranayama.ui.filechooser.fileChooser;
+import com.pranayama.ui.filechooser.fileFilter;
 import com.pranayama.ui.list.AnimationList;
 import com.pranayama.ui.list.AnimationListCellRenderer;
 import com.pranayama.ui.list.LightScrollPane;
-import com.pranayama.ui.list.GenericListModel;
 import com.pranayama.ui.panel.basicPanel;
+import com.pranayama.util.fileUtils;
 import com.pranayama.util.utils;
 import static com.pranayama.util.utils2.listFilesForFolder;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
@@ -26,13 +32,17 @@ import java.io.IOException;
 import java.nio.file.*;
 import static java.nio.file.Files.list;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
+import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.plaf.ComboBoxUI;
@@ -42,22 +52,24 @@ public class soundWindow {
     public patternWindow sound;
     PRANAYAMA pranaMain;
 
+    String selectedSound;
     DefaultListModel model;
     JList soundList;
     LightScrollPane scroll;
     int soundListIndex = -1;
     utils.buttonsWindow apply, downloadButton, removeButton, playButton, stopButton;
     public JCheckBox sound_box;
-    public JComboBox comboSound;
+//    public JComboBox comboSound;
+    public Sound audio;
 
-    public soundWindow() {
-
+    public soundWindow(PRANAYAMA prana) {
+        this.pranaMain = prana;
         init();
     }
 
     private void init() {
         sound = new patternWindow(pranaMain, "Audio", true, 0, true, true, 0, 0, 400, 530); // 540 480
-        sound.setWindowVisibility(true);
+        sound.setWindowVisibility(false);
         Font font = new Font("Monotype Corsiva", Font.BOLD, 25);
 // ========================= BUTTONS  'Apply','Cancel' =========================
         // add button 'Apply' to start download game     
@@ -93,11 +105,17 @@ public class soundWindow {
             public void itemStateChanged(ItemEvent e) {
                 if (sound_box.isSelected()) {
                     enableAllElements();
-                } else {
-                    disableAllElements();
-                    soundList.clearSelection();
-                    setSoundListIndex(-1);
+                    // set default sound value when checkbox is selected 
+                    // and user has not opened sound window
+                    // setSoundListIndex(0);
                     soundList.setSelectedIndex(getSoundListIndex());
+                    setSelectedSound(soundList.getSelectedValue().toString());
+                } else {
+                    setSelectedSound("empty");
+                    disableAllElements();
+                    // soundList.clearSelection();
+//                    setSoundListIndex(-1);
+//                    soundList.setSelectedIndex(getSoundListIndex());
                 }
             }
         });
@@ -115,26 +133,13 @@ public class soundWindow {
 //=============================== sounds ========================================
         downloadButton = new utils.buttonsWindow("Download", 130, 35, 12, 23);
         downloadButton.setDisabledState(false);
-        downloadButton.addMouseListener(apply());
+        downloadButton.addMouseListener(downloadSound());
         downloadButton.setBounds(45, 120, 135, 40);
 
         removeButton = new utils.buttonsWindow("Remove", 100, 35, 12, 23);
         removeButton.setDisabledState(true);
         removeButton.addMouseListener(removeSound());
         removeButton.setBounds(265, 120, 105, 40);
-
-//        model = new DefaultListModel( );
-        soundList = createList();
-        scroll = new LightScrollPane(soundList); 
-        scroll.setBounds(25, 175, 350, 175);
-//        comboSound = new JComboBox(files);
-//        comboSound.setUI((ComboBoxUI) MyComboBoxUI.createUI(comboSound));
-//        comboSound.setSelectedIndex(0);
-//        comboSound.setBounds(25, 125, 350, 30);
-//        comboSound.setPrototypeDisplayValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-//        comboSound.setFont(new Font("Serif", Font.BOLD, 16));
-//        comboSound.setEditable(false);
-//        changeFonts(comboSound);
 //=========================== Check sound ======================================
         separator s5 = new separator();
         s5.setBounds(20, 370, 105, 10);
@@ -162,6 +167,24 @@ public class soundWindow {
         s8.setBounds(170, 445, 160, 10);
         separator s9 = new separator();
         s9.setBounds(320, 445, 58, 10);
+//============================= sound list =====================================
+        soundList = createList();
+        // set default sound value when checkbox is selected 
+        // and user has not opened sound window
+        setSoundListIndex(0);
+        soundList.setSelectedIndex(getSoundListIndex());
+        setSelectedSound(soundList.getSelectedValue().toString());
+
+        scroll = new LightScrollPane(soundList);
+        scroll.setBounds(25, 175, 350, 175);
+//        comboSound = new JComboBox(files);
+//        comboSound.setUI((ComboBoxUI) MyComboBoxUI.createUI(comboSound));
+//        comboSound.setSelectedIndex(0);
+//        comboSound.setBounds(25, 125, 350, 30);
+//        comboSound.setPrototypeDisplayValue("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+//        comboSound.setFont(new Font("Serif", Font.BOLD, 16));
+//        comboSound.setEditable(false);
+//        changeFonts(comboSound);
 //==================== layout components ========================================        
         sound.base.add(s1);
         sound.base.add(headerColors);
@@ -195,22 +218,30 @@ public class soundWindow {
     public int getSoundListIndex() {
         return soundListIndex;
     }
-    
+
+    public void setSelectedSound(String selectedSound) {
+        this.selectedSound = selectedSound;
+    }
+
+    public String getSelectedSound() {
+        return selectedSound;
+    }
+
     private JList createList() { // final JList list
-        
+
         final File folder = new File("./src/main/recources/sound");
         String[] files = listFilesForFolder(folder);
-        
-        DefaultListModel model = new DefaultListModel( );
+
+        DefaultListModel model = new DefaultListModel();
         JList list = new JList(model); // al
 
         AnimationList[] al = new AnimationList[files.length];
         for (int i = 0; i < files.length; i++) {
             String f = files[i];
             al[i] = new AnimationList(f, "./src/main/recources/img/audio4.png");
-            model.addElement(al[i]); 
+            model.addElement(al[i]);
         }
-        
+
         //list.setModel(new GenericListModel<AnimationList>()); 
         list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         list.setCellRenderer(new AnimationListCellRenderer(list));
@@ -218,8 +249,8 @@ public class soundWindow {
 
             @Override
             public void valueChanged(ListSelectionEvent arg0) {
-                
-                setSoundListIndex(list.getSelectedIndex()); 
+
+                setSoundListIndex(list.getSelectedIndex());
 
                 if (getSoundListIndex() != -1) {
                     removeButton.setDisabledState(false);
@@ -247,9 +278,7 @@ public class soundWindow {
                 // hide COLORS window
                 sound.setWindowVisibility(false);
                 // Show SETTINGS window
-               // pranaMain.mainMenu.Breath.settingsBreath.settings.setWindowVisibility(true);
-               System.exit(0); 
-               
+                pranaMain.mainMenu.Breath.settingsBreath.settings.setWindowVisibility(true);
             }
         };
         return ma;
@@ -257,6 +286,8 @@ public class soundWindow {
 
     protected void disableAllElements() {
         downloadButton.setDisabledState(true);
+        removeButton.setDisabledState(true);
+        playButton.setDisabledState(true);
         soundList.setEnabled(false);
         // soundList.repaint();
         sound.base.repaint();
@@ -264,57 +295,143 @@ public class soundWindow {
 
     protected void enableAllElements() {
         downloadButton.setDisabledState(false);
+        removeButton.setDisabledState(false);
+        playButton.setDisabledState(false);
         soundList.setEnabled(true);
         //soundList.repaint();
         sound.base.repaint();
     }
-    
+
+    private MouseAdapter downloadSound() {
+        MouseAdapter ma = new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+                if (sound_box.isSelected()) {
+                    try {
+                        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+                    } catch (Exception ee) {
+                        System.out.println("Unable to load Windows look and feel");
+                    }
+                    JFileChooser chooser = new JFileChooser();
+                    // MyFileChooser2 chooser = new MyFileChooser2();
+                    //chooser.customizeFileChooser(comp); 
+                    chooser.setAcceptAllFileFilterUsed(false);
+
+                    String[] audio = {".wav", ".au", ".wma", ".mp3"};
+
+                    chooser.addChoosableFileFilter(new fileFilter(audio, "Audio(*.wav, *.au, *.wma, *.mp3)"));
+                    chooser.addActionListener(new ActionListener() {
+
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            System.out.println("Action");
+
+                            soundList.repaint();
+                            sound.base.repaint();
+                        }
+                    });
+
+                    int option = chooser.showOpenDialog(sound.window);
+                    if (option == JFileChooser.APPROVE_OPTION) {
+                        if (chooser.getSelectedFile() != null) {
+                            System.out.println("OPENED");
+                        }
+
+                        File source = new File(chooser.getSelectedFile().getAbsolutePath());
+
+//                        System.out.println("!!: " + chooser.getSelectedFile().getAbsolutePath() +
+//                                "\\" + chooser.getSelectedFile().getName());
+                        File dest = new File("./src/main/recources/sound/" + chooser.getSelectedFile().getName());
+
+                        DefaultListModel model = (DefaultListModel) soundList.getModel();
+                        AnimationList al = new AnimationList(chooser.getSelectedFile().getName(), "./src/main/recources/img/audio4.png");
+                        model.addElement(al);
+                        //  set selected state downloaded sound file
+                        soundList.setSelectedValue(al, true);
+
+                        try {
+                            fileUtils.copyFileUsingStream(source, dest);
+                        } catch (IOException ex) {
+                        }
+                    }
+                }
+            }
+        };
+        return ma;
+    }
+
     private MouseAdapter removeSound() {
         MouseAdapter ma = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-               
-               // soundList.remove(soundList.getSelectedIndex()); 
-                //soundList.clearSelection();
-                System.out.println("" + soundList.getSelectedValue().toString());
-                
-                String fileName = soundList.getSelectedValue().toString();
-                
-                //./src/main/recources/
-                File f= new File("./src/main/recources/sound/" + fileName); //
-                f.delete();
-                
-                DefaultListModel model = (DefaultListModel) soundList.getModel();
-                model.remove(soundListIndex);
-                
-                soundList.repaint();
-                sound.base.repaint();
+
+                if (sound_box.isSelected()) {
+                    // soundList.remove(soundList.getSelectedIndex()); 
+                    //soundList.clearSelection();
+                    System.out.println("" + soundList.getSelectedValue().toString());
+
+                    String fileName = soundList.getSelectedValue().toString();
+                    //./src/main/recources/
+                    File f = new File("./src/main/recources/sound/" + fileName); //
+                    f.delete();
+
+                    DefaultListModel model = (DefaultListModel) soundList.getModel();
+                    model.remove(getSoundListIndex());
+
+                    soundList.repaint();
+                    sound.base.repaint();
+                }
             }
         };
         return ma;
     }
-    
+
     private MouseAdapter playSound() {
         MouseAdapter ma = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                
-                stopButton.setDisabledState(false); 
-                
-                sound.base.repaint();
+
+                if (sound_box.isSelected()) {
+                    if (!soundList.isSelectionEmpty()) {
+                        String fileName = soundList.getSelectedValue().toString();
+
+                        audio = new Sound("./src/main/recources/sound/" + fileName);
+                        audio.setComponent(stopButton);
+                        audio.setPanel(sound.base);
+                        audio.play();
+                        audio.startThread();
+                        // soundList.clearSelection();
+
+                        if (audio.isPlaying()) {
+                            stopButton.setDisabledState(false);
+                        }
+
+                        apply.setDisabledState(false);
+//                    else {
+//                       stopButton.setDisabledState(true); 
+//                    }
+                        sound.base.repaint();
+                    }
+                }
             }
         };
         return ma;
     }
-    
+
     private MouseAdapter stopSound() {
         MouseAdapter ma = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                
-               // stopButton.setDisabledState(false);
-                stopButton.setDisabledState(true);
-                sound.base.repaint();
+
+                if (audio.isPlaying()) {
+                    audio.stopThread();
+                    audio.close();
+                    System.out.println("isPlaying: " + audio.isPlaying());
+
+                    stopButton.setDisabledState(true);
+                    sound.base.repaint();
+                }
             }
         };
         return ma;
@@ -324,10 +441,21 @@ public class soundWindow {
         MouseAdapter ma = new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                // hide COLORS window
-                //colors.setWindowVisibility(false);
-                // Show SETTINGS window
-                //pranaMain.mainMenu.Breath.settingsBreath.settings.setWindowVisibility(true);
+
+                if (!soundList.isSelectionEmpty()) {
+                    apply.setDisabledState(false);
+                    setSelectedSound(soundList.getSelectedValue().toString());
+
+                    // hide Sound window
+                    sound.setWindowVisibility(false);
+                    // Show SETTINGS window
+                    pranaMain.mainMenu.Breath.settingsBreath.settings.setWindowVisibility(true);
+                } else {
+                    setSelectedSound("empty");
+                    apply.setDisabledState(true);
+                }
+
+                sound.base.repaint();
             }
         };
         return ma;
@@ -335,9 +463,9 @@ public class soundWindow {
 
     public static void main(String[] args) throws IOException {
 
-        soundWindow sb = new soundWindow();  // Breathing Snake 1:1
-        sb.sound.base.revalidate();
-        sb.sound.base.repaint();
+//        soundWindow sb = new soundWindow();  // Breathing Snake 1:1
+//        sb.sound.base.revalidate();
+//        sb.sound.base.repaint();
 //        sb.colors.base.repaint();
 //        sb.setWindowVisibility(true);
     }
