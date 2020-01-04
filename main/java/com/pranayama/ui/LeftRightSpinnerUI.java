@@ -122,6 +122,6 @@ public class LeftRightSpinnerUI extends BasicSpinnerUI {
         spinner_mplier.setEnabled(true);
 
         frame.add(spinner_mplier);
-//        frame.setVisible(true);
+        frame.setVisible(true);
     }
 }

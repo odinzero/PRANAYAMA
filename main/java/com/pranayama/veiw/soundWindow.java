@@ -2,19 +2,14 @@ package com.pranayama.veiw;
 
 import com.pranayama.PRANAYAMA;
 import com.pranayama.audio.Sound;
-import com.pranayama.util.fileUtils;
-import com.pranayama.gradientSampleIcon;
 import com.pranayama.menu.ui.separator;
 import com.pranayama.pattern.patternWindow;
 import com.pranayama.ui.MyCheckBoxUI;
-import com.pranayama.ui.MyComboBoxUI;
 import com.pranayama.ui.buttons;
-import com.pranayama.ui.filechooser.fileChooser;
 import com.pranayama.ui.filechooser.fileFilter;
 import com.pranayama.ui.list.AnimationList;
 import com.pranayama.ui.list.AnimationListCellRenderer;
 import com.pranayama.ui.list.LightScrollPane;
-import com.pranayama.ui.panel.basicPanel;
 import com.pranayama.util.fileUtils;
 import com.pranayama.util.utils;
 import static com.pranayama.util.utils2.listFilesForFolder;
@@ -29,23 +24,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.*;
-import static java.nio.file.Files.list;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Stream;
 import javax.swing.DefaultListModel;
 import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.UIManager;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.plaf.ComboBoxUI;
 
 public class soundWindow {
 

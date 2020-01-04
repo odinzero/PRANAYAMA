@@ -1,28 +1,18 @@
 package com.pranayama;
 
-import com.pranayama.veiw.viewsWindow;
+import com.pranayama.menu.menu;
+import com.pranayama.ui.panel.basicPanel;
+import com.pranayama.ui.plusminus.PlusMinusActions;
+import com.pranayama.veiw.soundWindow;
 import com.pranayama.veiw.viewDefault;
 import com.pranayama.veiw.views;
 import com.pranayama.veiw.viewsColorWindow;
-import com.pranayama.menu.menu;
-import com.pranayama.ui.plusminus.PlusMinusActions;
-import com.pranayama.ui.panel.basicPanel;
-import com.pranayama.veiw.soundWindow;
-import java.awt.BorderLayout;
+import com.pranayama.veiw.viewsWindow;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class PRANAYAMA  { /// implements KeyListener
 

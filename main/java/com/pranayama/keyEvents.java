@@ -45,6 +45,12 @@ public class keyEvents implements KeyListener {
             pranaMain.mainMenu.menuPanel.setVisible(true);
             pranaMain.mainMenu.Breath.breath.setWindowVisibility(true);
         }
+        // show SUBMENU 'Statistics'
+        // key 'd'
+        if (keyCode == KeyEvent.VK_D) {
+//            pranaMain.mainMenu.menuPanel.setVisible(true);
+//            pranaMain.mainMenu.Breath.breath.setWindowVisibility(true);
+        }
         // show SUBMENU 'Help'
         // key 'h'
         if (keyCode == KeyEvent.VK_H) {
@@ -81,6 +87,11 @@ public class keyEvents implements KeyListener {
         if ((keyCode == KeyEvent.VK_H) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
             // Show Reference window
             pranaMain.mainMenu.Help.help.setWindowVisibility(true);
+        }
+        // CTRL + a
+        if ((keyCode == KeyEvent.VK_A) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {
+            // Show Statistics window
+//            pranaMain.mainMenu.Help.help.setWindowVisibility(true);
         }
         // CTRL + r
         if ((keyCode == KeyEvent.VK_R) && ((e.getModifiers() & KeyEvent.CTRL_MASK) != 0)) {

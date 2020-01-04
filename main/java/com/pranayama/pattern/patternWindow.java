@@ -2,6 +2,7 @@ package com.pranayama.pattern;
 
 import com.pranayama.PRANAYAMA;
 import com.pranayama.ui.componentBevelBorder;
+import com.pranayama.ui.list.LightScrollPane;
 import java.awt.AlphaComposite;
 import java.awt.BasicStroke;
 import java.awt.Color;

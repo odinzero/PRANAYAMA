@@ -5,9 +5,6 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 
-/**
- * @author Vladimir Ikryanov
- */
 public class LightScrollPane extends JComponent {
 
     private static final int SCROLL_BAR_ALPHA_ROLLOVER = 150;
