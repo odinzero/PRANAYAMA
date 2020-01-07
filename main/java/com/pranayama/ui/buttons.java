@@ -1,4 +1,3 @@
-
 package com.pranayama.ui;
 
 import java.awt.BasicStroke;
@@ -59,7 +58,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
         addMouseListener(this);
         addMouseMotionListener(this);
     }
-    
+
     public buttons(int type, String nameCheckbox) {
         this.typeButton = type;
         this.nameCheckbox = nameCheckbox;
@@ -121,7 +120,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
 
             // **********************  Addition 'exit button' ****************************************************
             Area area = new Area(exitbutton);
-          //  graphics2d.setColor(new Color(190, 220, 220));
+            //  graphics2d.setColor(new Color(190, 220, 220));
             graphics2d.setColor(Color.yellow);
 //        area.add(new Area(exitbutton));
 //        graphics2d.fill(exitbutton);
@@ -152,7 +151,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
             strelkaLeftButton = new RoundRectangle2D.Double(1.0D, 1.0D, 24, 24, arc, arc);
             // **********************  Addition 'strelkaLeftButton' ****************************************************
             Area area = new Area(strelkaLeftButton);
-           // graphics2d.setColor(new Color(190, 220, 220));
+            // graphics2d.setColor(new Color(190, 220, 220));
             graphics2d.setColor(Color.yellow);
             Area strelka = new Area(createStrelkaLeft(5, 5, 20, 20));
             area.add(strelka);
@@ -160,6 +159,12 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
                 graphics2d.setColor(Color.orange);
             } else {
                 graphics2d.setColor(Color.blue);
+            }
+
+            if (this.isEnabled()) {
+                graphics2d.setColor(Color.orange);
+            } else {
+                graphics2d.setColor(Color.LIGHT_GRAY);
             }
             graphics2d.fill(strelka);
         }
@@ -176,6 +181,12 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
                 graphics2d.setColor(Color.orange);
             } else {
                 graphics2d.setColor(Color.blue);
+            }
+
+            if (this.isEnabled()) {
+                graphics2d.setColor(Color.orange);
+            } else {
+                graphics2d.setColor(Color.LIGHT_GRAY);
             }
             graphics2d.fill(strelka);
         }
@@ -205,7 +216,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
             graphics2d.setFont(font);
 
             if (!buttonFocused) {
-                graphics2d.setColor(new Color(255,95,17)); // Color.orange new Color(247,145,190)
+                graphics2d.setColor(new Color(255, 95, 17)); // Color.orange new Color(247,145,190)
             } else {
                 graphics2d.setColor(Color.blue);
             }
@@ -213,7 +224,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
             FontMetrics fm = getFontMetrics(getFont());
             int width = fm.stringWidth(this.nameMenu);
 
-          //  boundsMenuItem = new Rectangle(1, 1, 50, 24);
+            //  boundsMenuItem = new Rectangle(1, 1, 50, 24);
             if (centerORnot) {
                 centerString(graphics2d, this.boundsMenuItem, this.nameMenu, font);
             } else {
@@ -247,7 +258,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
                     graphics2d.setPaint(Color.yellow);
                 }
                 graphics2d.fill(outlineIN);
-                
+
                 RoundRectangle2D plusLine1 = new RoundRectangle2D.Double(17.0D, 30.0D, 19, 5, 4, 4);
                 RoundRectangle2D plusLine2 = new RoundRectangle2D.Double(24.0D, 23.0D, 5, 19, 4, 4);
                 Area areaPlus = new Area(plusLine1);
@@ -262,7 +273,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
                     graphics2d.setPaint(Color.yellow);
                 }
                 graphics2d.fill(outlineIN);
-                
+
                 RoundRectangle2D minusLine = new RoundRectangle2D.Double(17.0D, 30.0D, 19, 5, 4, 4);
                 Area areaMinus = new Area(minusLine);
 
@@ -272,13 +283,13 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
         }
 
     }
-    
+
     // for type button = 5 
     // button checkbox
     public boolean getPressedState() {
         return pressedState;
     }
-    
+
     public boolean setPressedState(boolean pressedState) {
         this.pressedState = pressedState;
         return this.pressedState;
@@ -368,14 +379,14 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
     }
 
     @Override
-    public void mousePressed(MouseEvent e) { 
+    public void mousePressed(MouseEvent e) {
         if (this.typeButton == 1) {
             if (exitbutton.contains(e.getPoint())) {
                 System.exit(0);
             }
         }
         if (this.typeButton == 5) {
-            if(!pressedState)  {
+            if (!pressedState) {
                 pressedState = true;
                 this.repaint();
             } else {
@@ -433,8 +444,7 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
             return this.nameMenu;
         } else if (this.typeButton == 5) {
             return this.nameCheckbox;
-        }
-        else {
+        } else {
             return "1111";
         }
     }
@@ -468,31 +478,25 @@ public class buttons extends JComponent implements MouseListener, MouseMotionLis
         p.add(helpMenuItem);
 
         f.add(p);
-       // f.setVisible(true);
-        
-        
-        
+        // f.setVisible(true);
+
 //        int i1 = 012;
 //        int i2 = 20;
-        
         double d = Math.sqrt(-1);
 //        
 //        System.out.println(Double.NaN == d);
 //        
 //        d= d/0;
 //        System.out.println(Double.isNaN(d)); 
-        
+
 //        Integer i = 5000;
-        
         byte a = 1;
         byte b = ++a;
-       // byte c = -a;
-        
-        
+        // byte c = -a;
+
         System.out.println(a);
         System.out.println(b);
-       // System.out.println(c);
+        // System.out.println(c);
     }
 
 }
-

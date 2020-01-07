@@ -78,7 +78,7 @@ public class patternWindow {
         window.setVisible(true);
 
         if(centerORnot) { 
-          center(prana.frame, window);
+//          center(prana.frame, window);
         } else {
           nonCenter(prana.frame, x, y);
         }

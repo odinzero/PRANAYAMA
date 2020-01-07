@@ -96,12 +96,12 @@ public class submenu_Help {
     }
 
     private void initHelpContentButtons() {
-        showHelpContent1 = new buttons(2); // button for show second content help menu
+        showHelpContent1 = new buttons(3); // button for show second content help menu
         showHelpContent1.setName("firstHelp");
         showHelpContent1.setBounds(188, 395, 24, 24);
         showHelpContent1.setVisible(true);
 
-        showHelpContent2 = new buttons(3); // button for show first content help menu
+        showHelpContent2 = new buttons(2); // button for show first content help menu
         showHelpContent2.setName("secondHelp");
         showHelpContent2.setBounds(188, 395, 24, 24);
         showHelpContent2.setVisible(false);
