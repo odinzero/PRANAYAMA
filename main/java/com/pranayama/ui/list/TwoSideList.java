@@ -26,14 +26,16 @@ public class TwoSideList extends JComponent {
     buttons toRightButton;
     buttons toLeftButton;
     String imagePath;
+    public JList leftSideList = null;
+    public JList rightSideList = null;
 
     public TwoSideList(String folderPath1,  String folderPath2, String imagePath, int typeSelection,
              int x, int y, int w, int h) {
 
         this.imagePath = imagePath;
         
-        JList leftSideList = createFileList(folderPath1, this.imagePath, typeSelection);
-        JList rightSideList = createFileList(folderPath2, this.imagePath, typeSelection);
+        leftSideList = createFileList(folderPath1, this.imagePath, typeSelection);
+        rightSideList = createFileList(folderPath2, this.imagePath, typeSelection);
 
         leftSideList.addListSelectionListener(leftListener(leftSideList));
         rightSideList.addListSelectionListener(rightListener(rightSideList));
@@ -58,8 +60,8 @@ public class TwoSideList extends JComponent {
         
         this.imagePath = filePath;
 
-        JList leftSideList = createList(text1, this.imagePath, typeSelection);
-        JList rightSideList = createList(text2, this.imagePath, typeSelection);
+        leftSideList = createList(text1, this.imagePath, typeSelection);
+        rightSideList = createList(text2, this.imagePath, typeSelection);
 
         leftSideList.addListSelectionListener(leftListener(leftSideList));
         rightSideList.addListSelectionListener(rightListener(rightSideList));
@@ -232,7 +234,7 @@ public class TwoSideList extends JComponent {
                             int i = -1;
                             for (Object obj : objects) {
                                 AnimationList al = new AnimationList(((AnimationList) obj).getTitle(),
-                                        "./src/main/recources/img/audio4.png");
+                                        getImagePath());
                                 // add new element to list2
                                 model2.addElement(al);
                                 i++;
@@ -253,22 +255,22 @@ public class TwoSideList extends JComponent {
 
     public static void main(String[] args) {
 
-        patternWindow w = new patternWindow(null, "Create complex", true, 0, true, true, 0, 0, 400, 530); // 540 480
+//        patternWindow w = new patternWindow(null, "Create complex", true, 0, true, true, 0, 0, 400, 530); // 540 480
 
 //        TwoSideList twolist = new TwoSideList("./src/main/recources/sound", "./src/main/recources/sound",
 //                "./src/main/recources/img/audio4.png",
 //                 ListSelectionModel.SINGLE_SELECTION,
 //                25, 100, 300, 200);
 
-        String[] arr1 = {"Java1", "PHP1", "Ruby1", "C++1", "Rust1", "Perl1"};
-        String[] arr2 = {"Java2", "PHP2", "Ruby2", "C++2", "Rust2", "Perl2"};
-        TwoSideList twolist = new TwoSideList(
-                arr1, arr2, "./src/main/recources/img/audio4.png",
-                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION,
-                25, 100, 350, 200);
-
-        w.base.add(twolist);
-
-        w.setWindowVisibility(true);
+//        String[] arr1 = {"Java1", "PHP1", "Ruby1", "C++1", "Rust1", "Perl1"};
+//        String[] arr2 = {"Java2", "PHP2", "Ruby2", "C++2", "Rust2", "Perl2"};
+//        TwoSideList twolist = new TwoSideList(
+//                arr1, arr2, "./src/main/recources/img/audio4.png",
+//                ListSelectionModel.MULTIPLE_INTERVAL_SELECTION,
+//                25, 100, 350, 200);
+//
+//        w.base.add(twolist);
+//
+//        w.setWindowVisibility(true);
     }
 }
